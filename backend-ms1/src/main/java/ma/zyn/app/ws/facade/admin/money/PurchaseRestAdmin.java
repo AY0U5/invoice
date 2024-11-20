@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import ma.zyn.app.zynerator.transverse.cloud.MinIOInfos;
+import ma.zyn.app.zynerator.transverse.cloud.MinIOService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -214,16 +216,30 @@ public class PurchaseRestAdmin {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    @Operation(summary = "Upload multiple files to the bucket")
+    @PostMapping("/upload")
+    public List<MinIOInfos> uploadMultipleToMinio(@RequestParam("files") List<MultipartFile> files) {
+        return minIOService.uploadMultipleToMinio(files, "zyn");
+    }
+
+    @Operation(summary = "Upload a file to the bucket")
+    @PostMapping("/upload/file")
+    public MinIOInfos uploadToMinio(@RequestParam("file") MultipartFile file) {
+        return minIOService.uploadToMinio(file, "zyn");
+    }
 
 
 
-   public PurchaseRestAdmin(PurchaseAdminService service, PurchaseConverter converter){
+
+   public PurchaseRestAdmin(PurchaseAdminService service, PurchaseConverter converter, MinIOService minIOService) {
         this.service = service;
         this.converter = converter;
+        this.minIOService = minIOService;
     }
 
     private final PurchaseAdminService service;
     private final PurchaseConverter converter;
+    private final MinIOService minIOService;
 
 
 

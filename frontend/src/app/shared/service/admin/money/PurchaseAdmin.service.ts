@@ -88,19 +88,24 @@ export class PurchaseAdminService {
         return this.http.post<void>(this.API + 'multiple', this.selections);
     }
 
+    public uploadOne(files: File[]): Observable<MinIOInfos> {
+        if (!files) {
+            return throwError(() => new Error("No file to upload"));
+        }
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        return this.http.post<MinIOInfos>(environment.uploadMultipleUrlOne, formData)
+    }
+
 	public upload(files: File[]): Observable<MinIOInfos[]> {
         if (!files || files.length === 0) {
             return throwError(() => new Error("No files to upload"));
         }
-        const formDataArray: FormData[] = [];
+        const formData = new FormData();
         for (const file of files) {
-            const formData = new FormData();
             formData.append('files', file);
-            formDataArray.push(formData);
         }
-        const requests = formDataArray.map(formData =>
-            this.http.post<MinIOInfos>(environment.uploadMultipleUrl, formData)
-        );
+        const requests = this.http.post<MinIOInfos>(environment.uploadMultipleUrl1, formData)
         return forkJoin(requests);
     }
 

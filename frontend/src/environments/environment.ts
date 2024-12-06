@@ -18,6 +18,8 @@ export const environment = {
   apiUrl: 'http://localhost:8036/',
 
   uploadMultipleUrl: 'http://localhost:8036/api/cloud/upload-multiple/bucket/ana',
+  uploadMultipleUrl1: 'http://localhost:8036/api/admin/purchase/upload',
+  uploadMultipleUrlOne: 'http://localhost:8036/api/admin/purchase/upload/file',
 
   stripeUrl: "http://localhost:8036/api/payment/create-payment-intent/",
   stripePublicKey: "pk_test_51PVbvFRxVNBDrAcwfSz21b6EtPSpl6Fw3gUoKpIGWZN5whhSfS67W4hbtk95OMF1JSpxgYPyp9AmkNOAPLNFR7St00tDXFRjuV",

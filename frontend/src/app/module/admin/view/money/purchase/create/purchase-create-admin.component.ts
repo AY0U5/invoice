@@ -39,8 +39,7 @@ export class PurchaseCreateAdminComponent  implements OnInit {
     protected stringUtilService: StringUtilService;
     private _activeTab = 0;
     protected purchaseItemsIndex = -1;
-    filesImage : File[] = [] ;
-
+    protected filesImage : File[] = [] ;
     private _purchaseItemsElement = new PurchaseItemDto();
 
 
@@ -67,6 +66,26 @@ export class PurchaseCreateAdminComponent  implements OnInit {
         this.filesImage = event.files;
         this.service.upload(this.filesImage).subscribe({
             next: (minioInfos) => {
+                minioInfos.map(
+                    minioInfo => {
+                        this.item.image += minioInfo.etag + ','
+                    }
+                )
+                this.messageService.add({severity:'success', summary: 'Success', detail: 'Files uploaded successfully'});
+                console.log('Files uploaded successfully:', minioInfos);
+            },
+            error: (err) => {
+                this.messageService.add({severity:'error', summary: 'Error', detail: 'File upload failed'});
+                console.error('File upload failed:', err);
+            }
+        });
+    }
+
+    public uploadOne(event: any) {
+        this.filesImage = event.files;
+        this.service.uploadOne(this.filesImage).subscribe({
+            next: (minioInfos) => {
+                this.item.image = minioInfos.etag
                 this.messageService.add({severity:'success', summary: 'Success', detail: 'Files uploaded successfully'});
                 console.log('Files uploaded successfully:', minioInfos);
             },
@@ -159,7 +178,6 @@ export class PurchaseCreateAdminComponent  implements OnInit {
 
     public  validateForm(): void{
         this.errorMessages = new Array<string>();
-        this.validatePurchaseReference();
     }
 
     public validatePurchaseReference(){

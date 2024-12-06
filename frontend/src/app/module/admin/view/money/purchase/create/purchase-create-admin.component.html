@@ -17,14 +17,14 @@
                                                     <p-calendar appendTo="body" id="2"  [showTime]="true" [showSeconds]="false" placeholder="{{'purchase.purchaseDate' | translate}}"  [(ngModel)]="item.purchaseDate"
                                                             dateFormat="{{dateFormat}}"  >
                                                     </p-calendar>
-                                                    
+
                                                 </div>
 
                                                 <div class="field col-12 md:col-6">
                                                     <p-fileUpload #fileUpload id="3" (onSelect)="uploadImage($event)"  [multiple]="true"  maxFileSize="10000000000" [showUploadButton]="false"
                                                                   [showCancelButton]="false" chooseLabel="Upload">
                                                     </p-fileUpload>
-                                                        
+
                                                 </div>
 
 
@@ -32,14 +32,14 @@
                                                     <label for="4">{{'purchase.total' | translate}}</label>
                                                     <p-inputNumber class="mb-2 mr-2" id="4" placeholder="{{'purchase.total' | translate}}" [(ngModel)]="item.total"  >
                                                     </p-inputNumber>
-                                                    
+
                                                 </div>
 
                                                 <div class="field col-12 md:col-6">
                                                     <label for="5">{{'purchase.description' | translate}}</label>
                                                     <textarea id="5" pInputTextarea rows="5" cols="30" placeholder="{{'purchase.description' | translate}}"  [(ngModel)]="item.description"
                                                              ></textarea>
-                                                    
+
                                                 </div>
 
                                 </div>
@@ -67,10 +67,10 @@
                                                                         <small class='p-error' *ngIf='!validPurchaseItemsQuantity'>Quantity is obligatory.</small>
                                                                     </div>
                                                                     <div class="field col-12 md:col-6">
-                                                                        <p-fileUpload #fileUpload id="5" (onSelect)="uploadImage($event)"  maxFileSize="10000000000" [showUploadButton]="false"
+                                                                        <p-fileUpload #fileUpload id="5" (onSelect)="uploadOne($event)"  maxFileSize="10000000000" [showUploadButton]="false"
                                                                                       [showCancelButton]="false" chooseLabel="Upload">
                                                                         </p-fileUpload>
-                                                                            
+
                                                                     </div>
                                                         <div class="field col-12 md:col-1">
                                                             <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addPurchaseItems()"></button>
